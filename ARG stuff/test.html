@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>The old city he tries oh so hard to remember...</title>
+    <style>
+        .mycolor{
+            color:black;
+        }
+        h2 {text-align: center;}
+        p {text-align: center;}
+
+        .container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+    </style>
+</head>
+
+<body bgcolor="black">
+
+    <audio id ="bgmusic1" loop>
+        <source src="Someplace_I_Know.mp3" type ="audio/mp3">
+    </audio>
+        <audio id ="bgmusic2" loop>
+        <source src="Someplace_I_Do_Not_Know.mp3" type ="audio/mp3">
+    </audio>
+        <audio id ="bgmusic3" loop>
+        <source src="A_Gods_Machine.mp3" type ="audio/mp3">
+    </audio>
+
+<h2 id="headerID">When did he forget?</h2>
+
+
+<div class="container" id="containerID">
+    <input style="text-align:center;" type="text" id="userInput">
+    <button style="text-align:center;" onclick="checkInput()">Submit</button>
+</div>
+
+<p class="mycolor" id="response"></p>
+
+<script>
+let changeBGMusic = 0;
+let musicStarted = false;
+let music = document.getElementById("bgmusic1");
+
+document.getElementById("userInput").addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        checkInput();
+    }
+});
+
+function startMusic() {
+    music.play();
+    document.removeEventListener("click", startMusic);
+    document.removeEventListener("keydown", startMusic);
+    document.removeEventListener("touchstart", startMusic);
+    }
+
+    document.addEventListener("click", startMusic);
+    document.addEventListener("keydown", startMusic);
+    document.addEventListener("touchstart", startMusic);
+
+  var audio = document.getElementById("bgmusic1");
+  audio.volume = 0.2;
+  var audio = document.getElementById("bgmusic2");
+  audio.volume = 0.2;
+  var audio = document.getElementById("bgmusic3");
+  audio.volume = 0.2;
+
+function checkInput() {
+
+    let music = document.getElementById("bgmusic1");
+    music.play();
+
+    let input = document.getElementById("userInput").value.toLowerCase();
+    let responseText = "";
+    let knowsDark = true;
+
+    if (input == "i dont know" || input == "i don't know" || input == "idk") {
+        responseText = "how sad... It seem's everyone in the world doesn't even remember...";
+    }
+    else if (input.includes("years") && input != "5 years ago") {
+        responseText = "But how many?";
+    }
+    else if (input.includes("light")) {
+        knowsDark = false;
+        responseText = "So you seek light? There was never any here. You must look in this darkness further. Only then will you truly hear me..."
+    }
+    else if (input.includes("what are you") || input.includes("who are you")) {
+        responseText = "I am... An old follower of sorts. Following Vecna's commands... Since I was so close to him I know things you never could begin to understand. And I have been studying you a bit too...";
+    }
+    else if (input.includes("old library")) {
+        responseText = "Yes... That is what you call it is it not? The city our poor librarian lives in, if you could even count him as alive... It is now a mere echo of the true world. But you wouldn't understand...";
+    }
+    else if (input.includes("mgepog nnnkadishtuagl")) {
+        responseText = "The name of the city, and in our native tongue too. Bravo, you impress me with your knowledge. Though it is not nearly what it once was. Or still is in some ways. What does time mean in this case anyway?";
+    }
+    else if (input === "5 years ago") {
+        changeBGMusic = 1;
+        responseText = "5 years? Hm... I guess the truth is no one knows how long it's been huh? 5 years feels right... But is it accurate? Does time even work as we feel it? Let's narrow it down to an event perhaps... He started to forget when the city became an echo. When the old cities began to fall. When the dream began... What- What truly happened when the dream began? You've lived it more than me or Bartholomew ever will. I guess what I am truly asking is... What happened to the world itself when the dream began...?"
+    }
+    else if (input === "the world ended") {
+        responseText = "No... not quite... Ours certainly did... That's why I can only talk to you here... I would have been alive and well, a citizen like any other had the dream not happened... But perhaps an end is just a new beggining?"
+    }
+    else if (input.includes("world began") || input.includes("world was born") || input.includes("world started") || input.includes("world took form")){
+        changeBGMusic = 2;
+        responseText = "Of course... it did... didn't it? https://discord.gg/3HJtkNrYqA"
+        document.getElementById("containerID").style.display = "none";
+        document.getElementById("headerID").style.display = "none";
+    }
+    else if (input == "hello" || input == "hi") {
+        knowsDark = false;
+        responseText = "I care not for idle chatter. If you do not hear me in the darkness then simply leave. Find your own light, then we can talk";
+    }
+    else {
+        knowsDark = false;
+        responseText = "What are you trying to say? Do you even hear me in the darkness? Go find some light";
+    }
+    
+    let responseElement = document.getElementById("response");
+
+    if (knowsDark == false){
+        responseElement.style.color = "white";
+    }
+    else{
+        responseElement.style.color = "black";
+    }
+
+    function stopMusic(){
+        document.getElementById("bgmusic1").pause();
+        document.getElementById("bgmusic2").pause();
+        document.getElementById("bgmusic3").pause();
+    }
+
+
+    if (changeBGMusic == 1){
+        stopMusic()
+        let music = document.getElementById("bgmusic2");
+        music.play();
+    }
+    else if (changeBGMusic == 2){
+        stopMusic()
+        let music = document.getElementById("bgmusic3");
+        music.play();
+    }
+
+    responseElement.innerText = responseText;
+}
+</script>
+
+</body>
+</html>
